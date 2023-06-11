@@ -15,25 +15,27 @@ function draw() {
 }
 
 function imageOnLoad() {
-    const canvas = document.getElementById("canvas");
+    const main = document.getElementById("main");
+    const minimap = document.getElementById("minimap");
     const aspectRatio = img.width / img.height
-    const width = canvas.height * aspectRatio
-    const height = canvas.height
+    const width = main.height * aspectRatio
     params.width = width
-    params.height = height
+    params.height = main.height
+    main.width = width
+    minimap.width = minimap.height * aspectRatio
 
-    new DragGesture(canvas, (state) => {
+    new DragGesture(main, (state) => {
         if (!state.active) {
             return
         }
         params.x += state.delta[0]
         params.y += state.delta[1]
     })
-    new PinchGesture(canvas, (state) => {
+    new PinchGesture(main, (state) => {
         const scale = state.offset[0]
         const move = state.movement[0]
-        const width = canvas.height * aspectRatio * scale
-        const height = canvas.height * scale
+        const width = main.height * aspectRatio * scale
+        const height = main.height * scale
         let memo = state.memo
         if (state.first) {
             const cx = params.x + width / 2
@@ -52,7 +54,12 @@ function imageOnLoad() {
 
 function animate() {
     requestAnimationFrame(animate)
-    const canvas = document.getElementById("canvas");
+    animateMain()
+    animateMinimap()
+}
+
+function animateMain() {
+    const canvas = document.getElementById("main");
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height)
     context.drawImage(
@@ -62,6 +69,20 @@ function animate() {
         params.width,
         params.height
     )
+}
+
+function animateMinimap() {
+    const main = document.getElementById("main")
+    const canvas = document.getElementById("minimap")
+    const context = canvas.getContext("2d")
+    context.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+    const x = Math.max(-params.x, 0) * canvas.width / params.width
+    const y = Math.max(-params.y, 0) * canvas.height / params.height
+    const width = canvas.width * main.width / params.width
+    const height = canvas.height * main.height / params.height
+    context.strokeStyle = "red"
+    context.strokeRect(x, y, width, height)
 }
 
 window.onload = draw
