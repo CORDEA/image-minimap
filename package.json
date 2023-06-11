@@ -11,5 +11,8 @@
   "private": true,
   "devDependencies": {
     "esbuild": "0.18.0"
+  },
+  "dependencies": {
+    "@use-gesture/vanilla": "^10.2.27"
   }
 }
