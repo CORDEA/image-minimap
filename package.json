@@ -1,0 +1,15 @@
+{
+  "name": "image-minimap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "author": "Yoshihiro Tanaka <contact@cordea.jp>",
+  "license": "Apache-2.0",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "0.18.0"
+  }
+}
