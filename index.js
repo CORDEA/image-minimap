@@ -1,4 +1,4 @@
-import {DragGesture} from "@use-gesture/vanilla";
+import {DragGesture, PinchGesture} from "@use-gesture/vanilla";
 
 const params = {
     x: 0,
@@ -28,6 +28,23 @@ function imageOnLoad() {
         }
         params.x += state.delta[0]
         params.y += state.delta[1]
+    })
+    new PinchGesture(canvas, (state) => {
+        const scale = state.offset[0]
+        const move = state.movement[0]
+        const width = canvas.height * aspectRatio * scale
+        const height = canvas.height * scale
+        let memo = state.memo
+        if (state.first) {
+            const cx = params.x + width / 2
+            const cy = params.y + height / 2
+            memo = [cx - state.origin[0], cy - state.origin[1]]
+        }
+        params.x = move * memo[0] + (state.origin[0] - width / 2)
+        params.y = move * memo[1] + (state.origin[1] - height / 2)
+        params.width = width
+        params.height = height
+        return memo
     })
 
     animate()
