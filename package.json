@@ -4,13 +4,15 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "format": "prettier --write ."
   },
   "author": "Yoshihiro Tanaka <contact@cordea.jp>",
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {
-    "esbuild": "0.18.0"
+    "esbuild": "0.18.0",
+    "prettier": "2.8.8"
   },
   "dependencies": {
     "@use-gesture/vanilla": "^10.2.27"

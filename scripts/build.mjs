@@ -1,9 +1,9 @@
-import * as esbuild from "esbuild";
+import * as esbuild from 'esbuild'
 
 await esbuild.build({
-    entryPoints: ['index.js'],
-    outdir: 'dist',
-    bundle: true,
-    minify: true,
-    platform: 'browser',
+  entryPoints: ['index.js'],
+  outdir: 'dist',
+  bundle: true,
+  minify: true,
+  platform: 'browser'
 })
